@@ -25,14 +25,14 @@ A data object is created using modules of other coffeescript literals. Each layo
 Application Logic
 -
 
-Javascript Resources
+JavaScript Resources
 
 -	modernizr.js is loaded as a script tag to make intialization of page quicker. Loads before jquery, require etc
--	require.js uses the script/app.js page to initialize all front-end javascript
+-	require.js uses the script/app.js page to initialize all front-end JavaScript
 -	all dependencies are managed through require, including paper.js which is the main framework being used here
 -	Jquery is used and extended throughout. Didn't want to include external jquery libraries so I wrote my own easing functions. Made sure to require jquery where needed instead of depending upon calling function. (Saw an error on deployment with out this backup).
 
-Javascript Logic
+JavaScript Logic
 
 -	Application is built based on a jade template. I built a compiler tool to build the webpage dynamically. The data/canvas.coffee data corresponds to the master html data. I matched this up to the objects in the scripts/controller.coffee file.
 -	There are listeners on the proper "class" elements to map to the paper.js modules for live updating.
