@@ -1,0 +1,9 @@
+{
+  "author": "Arjan",
+  "name": "Momentum Demo",
+  "version": "0.0.1",
+  "dependencies": {
+  	"paper": "~0.3" 
+  	},
+  "devDependencies": {}
+}
