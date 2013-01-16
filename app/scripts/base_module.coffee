@@ -40,7 +40,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			frame = @elements.frame
 
 			# initialize our running variables
-			collision = false #whether or not a collision has occurred
+			numCollisions = 0 #after first collision react, after 2nd reset to beginning
 			rightRunning = true
 			leftRunning = true
 
@@ -55,8 +55,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				fv = frame.getVelocity()
 
 				# constraints on the elements triggering an end of completion for the animation
-				maxLeft = @paper.view.size.width * 0.05
-				maxRight = @paper.view.size.width * 0.95
+				maxLeft = @paper.view.size.width * 0.05 
+				maxRight = @paper.view.size.width * 0.95 
 
 				# validate both red and blue balls
 				do leftStatus = () =>
@@ -74,16 +74,16 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						current = left.element.position.x 
 						collisionBound = right.element.position.x - right.radius #right ball's collision element
 
-						if not collision and current + delta + left.radius > collisionBound
+						if numCollisions == 0 and current + delta + left.radius > collisionBound
 							left.element.position.x = collisionBound - left.radius
 
 						else
 							left.element.position.x += delta
 
 
-					if leftRunning 
+					if leftRunning or numCollisions > 0
 
-						if lv == 0 or lm == 0 or (lv + fv) == 0 
+						if lv == 0 or lm == 0 or (lv + fv) == 0  or numCollisions > 1
 							do reset
 								
 						else if parseInt(left.element.position.x) > maxRight or parseInt(left.element.position.x) < maxLeft
@@ -108,15 +108,15 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						collisionBound = left.element.position.x + left.radius
 
 
-						if not collision and current + maxDelta < collisionBound
+						if numCollisions == 0 and current + maxDelta < collisionBound
 							right.element.position.x = collisionBound + right.radius
 
 						else 
 							right.element.position.x += maxDelta							
 
-					if rightRunning
+					if rightRunning or numCollisions > 0
 					
-						if rv == 0 or rm == 0 or rv + fv == 0
+						if rv == 0 or rm == 0 or rv + fv == 0 or numCollisions > 1 
 							do reset
 
 						else if right.element.position.x < maxLeft or right.element.position.x > maxRight
@@ -141,16 +141,12 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					right.setTempVelocity rfv
 
 				# check collision status and respond if necessary
-				do collisionStatus = () =>
-
-					# check if collision even exists
-					if collision 
-						return
+				do collisionStatus = () =>					
 
 					# collision hasn't happened ... check values etc
 					lbRightSide = left.element.position.x + left.radius
 					rbLeftSide = right.element.position.x - right.radius
-					console.log "left,right" + Math.round(lbRightSide) + "," + Math.round(rbLeftSide)
+					#console.log "left,right" + Math.round(lbRightSide) + "," + Math.round(rbLeftSide)
 					if rbLeftSide <= lbRightSide
 
 						# reset the positions etc of the elements
@@ -159,7 +155,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 						# handle the collision
 						do collisionResponse #responsible for controlling the reset values etc after the collision
-						collision = true
+						numCollisions += 1				
+						
 
 				# re-evaluate the animation status. Restart if necessary
 				if leftRunning or rightRunning
