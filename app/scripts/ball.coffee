@@ -18,8 +18,8 @@ define ["paper"], (paper) ->
 			@config =
 				
 				ballSizeChange: false
-				radiusFactor: 6
-				verticalOffset: 150
+				radiusFactor: 8
+				verticalOffset: 45
 				horizontalOffset: @paper.view.size.width * 0.25
 				left : true
 				maxHeight : @paper.view.size.height
@@ -61,17 +61,17 @@ define ["paper"], (paper) ->
 			# initialize text
 			@text.justification = "center"
 			@text.fillColor = "white"
-			@text.content = @getMass() + "kg"
+			@setText @getVelocity()
 
 			# draw the element
 			@paper.view.draw()
 
+		setText : (velocity) =>			
+			@text.content = velocity + "m/s"
 
 		attrReset : (oldRadius) =>
 
-			# initialize the radius
-			# update the text element etc
-			@text.content = @getMass() + "kg"
+			# initialize the radius			
 
 			# reset the radius of the circle
 			@circle.scale @radius / oldRadius
@@ -103,6 +103,7 @@ define ["paper"], (paper) ->
 
 		setTempVelocity : (velocity) => #used for the temp momentum velocity
 
+			@setText velocity
 			@velocity = velocity
 
 		setVelocity : (velocity, frameVelocity) =>
@@ -115,6 +116,8 @@ define ["paper"], (paper) ->
 			label -= frameVelocity
 			@tag.text label
 			@input.attr "value", label
+
+			@setText velocity -= frameVelocity
 
 		# called from outside modules to change mass!
 		setMass : (mass) =>

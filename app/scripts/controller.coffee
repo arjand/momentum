@@ -106,20 +106,39 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		blue : new baseModule parentElements.blue, elementData.blue
 		custom : new baseModule parentElements.custom, elementData.custom
 
+	toggleImageUrl = (element) ->		
+		img = $(element).find("img")
+		if img.attr("src").indexOf("play") >= 0
+			img.attr("src", "images/pause.png");
+		else
+			img.attr("src", "images/play.png");
+
 	do playListener = () ->
+
+		$(".play-all").click () ->
+			modules.lab.play()
+			modules.red.play()
+			modules.blue.play()
+			modules.custom.play()
+			toggleImageUrl this
 
 		# clean this up with : http://stackoverflow.com/questions/7613100/issue-with-coffeescript-comprehensions-and-closures
 		parentElements.lab.find(".play").click () ->
 			modules.lab.play()
+			toggleImageUrl this
 
 		parentElements.red.find(".play").click () ->
 			modules.red.play()
+			toggleImageUrl this
 
 		parentElements.blue.find(".play").click () ->
 			modules.blue.play()
+			toggleImageUrl this
 		
 		parentElements.custom.find(".play").click () ->
 			modules.custom.play()
+			toggleImageUrl this
+				
 
 	# initialize the elements
 	do massListener = () ->

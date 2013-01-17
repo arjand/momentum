@@ -13,8 +13,10 @@ head
 
 	each url in header.javascripts
 		script(type="text/javascript", src="#{url}")
-		
+	//- these comments are required for yeoman build process
+	// build:js scripts/amd-app.js
 	script(type="text/javascript", data-main="#{header.requireApp}", src="#{header.requireUrl}")
+	// endbuild
 
 body
 	#header

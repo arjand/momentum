@@ -169,7 +169,7 @@ module.exports = {
 
 	4:
 
-		header : "Custom Ball Frame of Reference"
+		header : "Custom Frame of Reference"
 		frame : "custom"
 		controls : 
 

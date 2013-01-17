@@ -30,8 +30,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 			# paper view
 			@playing = false
-			@paper.view.draw()
-
+			@paper.view.draw()		
+			
 		play : () =>
 
 			# initialize references to the proper objects
@@ -45,6 +45,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			leftRunning = true
 
 			run = () =>
+				if !@playing
+					return 
 				# cache velocities etc for quick local access
 				lv = left.getVelocity()
 				lm = left.getMass()
@@ -174,6 +176,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			if not @playing
 				@playing = true
 				do run #run the element
+			else
+				@playing = false  #pause
 		# END PLAY METHOD
 
 
