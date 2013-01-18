@@ -10,7 +10,7 @@
 
   templateFile = "./layout.jade";
 
-  outputFile = "./index.html";
+  outputFile = "../index.html";
 
   templateOptions = {
     pretty: true,

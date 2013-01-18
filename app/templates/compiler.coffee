@@ -9,7 +9,7 @@ print = console.log
 
 # GLOBAL VARIABLES
 templateFile = "./layout.jade"
-outputFile = "./index.html"
+outputFile = "../index.html"
 templateOptions =
 	pretty: true
 	filename: true
