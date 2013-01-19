@@ -76,7 +76,7 @@ module.exports = {
 				editable: false
 				type: "slider"
 				min: -0
-				value: -4
+				value: -6
 				max: 10
 				name: "Blue Velocity"
 				label : "m/s"

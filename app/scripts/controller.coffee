@@ -57,7 +57,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 			b:
 				mass: 5
-				velocity: -4
+				velocity: -6
 				color: "blue"
 				left: false
 
@@ -68,7 +68,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			name: "blue"
 			a:
 				mass: 3
-				velocity: 2
+				velocity: 6
 				color: "red"
 				left: true
 
@@ -119,10 +119,10 @@ define ["base_module", "animation"], (baseModule, animation) ->
 	do playListener = () ->
 
 		$(".play-all").click () ->
-			modules.lab.play()
-			modules.red.play()
-			modules.blue.play()
-			modules.custom.play()
+			modules.lab.buttonAction()
+			modules.red.buttonAction()
+			modules.blue.buttonAction()
+			modules.custom.buttonAction()
 			#toggleImageUrl this
 
 		# clean this up with : http://stackoverflow.com/questions/7613100/issue-with-coffeescript-comprehensions-and-closures
@@ -206,9 +206,11 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		parentElements.custom.find("input").click ->
 
 			# subtract ten from value for offset hack because the input can not be negative
-			value = parseInt $(this).attr("value") - 10
+			value = parseInt $(this).attr("value") #- 10
 
 			modules.custom.elements.frame.setVelocity value
+			modules.custom.elements.a.initializeVelocity modules.lab.elements.a.getVelocity(), value
+			modules.custom.elements.b.initializeVelocity modules.lab.elements.b.getVelocity(), value
 
 		containers.find(".red_velocity > input").change ->
 
