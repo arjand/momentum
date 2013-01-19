@@ -2,14 +2,14 @@
 
 
 body
-	@include background(0,0,0,0.2)
+	@include background(0,0,0,0)
 	font-family: helvetica, arial, sans-serif
 	
 	
 
 #header
 	@include center(45%)
-	@include background(0,0,0,0.8)
+	@include background(40, 36, 96, 0.9)
 	@include border(0.5em)
 
 	> h1
@@ -52,7 +52,7 @@ body
 		position: relative
 		width: 100%
 		left: 0
-		@include background(0,0,0)
+		@include background(40, 36, 96)
 		color: white
 
 		> h1
@@ -75,7 +75,7 @@ body
 			top: 0
 			height: 100%
 			width: 2em
-			@include background
+			@include background(65,65,65,1)
 			cursor: pointer
 			@include transition(background-color, 1s)
 
@@ -164,7 +164,7 @@ body
 
 	> .blue_velocity
 
-		top: $verticalOffset + 2
+		top: $verticalOffset + 1
 		right: 0
 
 		input
@@ -177,7 +177,7 @@ body
 
 	> .red_velocity
 
-		top: $verticalOffset + 2
+		top: $verticalOffset + 1
 		left: 0
 	.label
 		display: inline-block
@@ -197,9 +197,9 @@ body
 #container > div:nth-child(4)
 	> .content
 		height: 8em
-	.blue_velocity,
-	.red_velocity
-		visibility: hidden
+	// .blue_velocity,
+	// .red_velocity
+	// 	visibility: hidden
 // #container div:nth-child(2),
 
 	

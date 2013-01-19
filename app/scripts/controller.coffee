@@ -30,7 +30,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 	elementData = #this is custom data that will over-write the modules!
 
 		lab : #frame of reference from the laboratory
-
+ 
 			name: "lab"
 			a : 
 				velocity: 5
@@ -39,7 +39,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				left: true
 
 			b :
-				velocity: -3
+				velocity: -1
 				mass: 5
 				color: "blue"
 				left: false
@@ -57,18 +57,18 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 			b:
 				mass: 5
-				velocity: -3
+				velocity: -4
 				color: "blue"
 				left: false
 
 			frame:
-				velocity: 1
+				velocity: 5
 
 		blue:#frame of reference from the blue ball
 			name: "blue"
 			a:
 				mass: 3
-				velocity: 5
+				velocity: 2
 				color: "red"
 				left: true
 
@@ -80,7 +80,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 			frame:
 
-				velocity: 1
+				velocity: -1
 
 		custom: #custom frame of reference
 
@@ -98,7 +98,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				left: false
 
 			frame:
-				velocity: 1
+				velocity: 0
 
 	modules = #create a base module for each and then send it callback functions etc for changing ...
 		lab : new baseModule parentElements.lab, elementData.lab
@@ -106,12 +106,15 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		blue : new baseModule parentElements.blue, elementData.blue
 		custom : new baseModule parentElements.custom, elementData.custom
 
-	toggleImageUrl = (element) ->		
-		img = $(element).find("img")
-		if img.attr("src").indexOf("play") >= 0
-			img.attr("src", "images/pause.png");
-		else
-			img.attr("src", "images/play.png");
+	# respond to event fired by basemodule when animation is finished
+	$(container).on('CNmomentumAnimationDone', (event, element) ->		 
+		for name,module  of modules
+			module.adjustPlayButton()
+	);
+
+	toggleImageUrl = (element, module) ->		
+		img = $(element).find("img")		
+		img.attr("src", "images/" + module.getPlayButtonImage() + ".png")
 
 	do playListener = () ->
 
@@ -120,24 +123,20 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			modules.red.play()
 			modules.blue.play()
 			modules.custom.play()
-			toggleImageUrl this
+			#toggleImageUrl this
 
 		# clean this up with : http://stackoverflow.com/questions/7613100/issue-with-coffeescript-comprehensions-and-closures
 		parentElements.lab.find(".play").click () ->
-			modules.lab.play()
-			toggleImageUrl this
+			modules.lab.buttonAction()			
 
 		parentElements.red.find(".play").click () ->
-			modules.red.play()
-			toggleImageUrl this
+			modules.red.buttonAction()			
 
 		parentElements.blue.find(".play").click () ->
-			modules.blue.play()
-			toggleImageUrl this
+			modules.blue.buttonAction()			
 		
 		parentElements.custom.find(".play").click () ->
-			modules.custom.play()
-			toggleImageUrl this
+			modules.custom.buttonAction()		
 				
 
 	# initialize the elements
@@ -176,24 +175,31 @@ define ["base_module", "animation"], (baseModule, animation) ->
 	redVelocityChanges = (value) =>
 
 		# this is responsible for changing the red velocity related elements across the elements
-		modules.lab.elements.a.setVelocity value, modules.lab.elements.frame.getVelocity()
+		modules.lab.elements.a.initializeVelocity value, modules.lab.elements.frame.getVelocity()
+		
 		modules.red.elements.frame.setVelocity value
-		modules.blue.elements.a.setVelocity value, modules.blue.elements.frame.getVelocity()
-		modules.custom.elements.a.setVelocity value, modules.custom.elements.frame.getVelocity()
+		modules.red.elements.a.initializeVelocity value, modules.red.elements.frame.getVelocity()
+		modules.red.elements.b.initializeVelocity modules.lab.elements.b.getVelocity(), modules.red.elements.frame.getVelocity()
+		
+		modules.blue.elements.a.initializeVelocity value, modules.blue.elements.frame.getVelocity()
+		
+		modules.custom.elements.a.initializeVelocity value, modules.custom.elements.frame.getVelocity()
 
 	blueVelocityChanges = (value) =>
-
-		value = -1 * parseInt value 
-
-		# assume that the number has been regulated to a negative already!
-		modules.lab.elements.b.setVelocity value, modules.lab.elements.frame.getVelocity()
-		modules.red.elements.b.setVelocity value, modules.red.elements.frame.getVelocity()
+		#value = -1 * parseInt value
+		
+		modules.lab.elements.b.initializeVelocity value, modules.lab.elements.frame.getVelocity()
+		
+		modules.red.elements.b.initializeVelocity value, modules.red.elements.frame.getVelocity()
+		
 		modules.blue.elements.frame.setVelocity value
-		modules.custom.elements.b.setVelocity value, modules.custom.elements.frame.getVelocity()
+		modules.blue.elements.b.initializeVelocity value, modules.blue.elements.frame.getVelocity()
+		modules.blue.elements.a.initializeVelocity modules.lab.elements.a.getVelocity(), modules.blue.elements.frame.getVelocity()
+		
+		modules.custom.elements.b.initializeVelocity value, modules.custom.elements.frame.getVelocity()
 
 	do listeners = =>
 
-		console.log "doing listeners"
 		containers = parent.children(":nth-child(1), :nth-child(4)")
 
 

@@ -26,7 +26,7 @@ define ["paper"], (paper) ->
 
 			label = if @config.velocity < 0 then @config.velocity * -1 else @config.velocity
 
-			@input.attr "value", label + 10
+			#@input.attr "value", label + 10
 
 
 

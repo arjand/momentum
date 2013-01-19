@@ -67,7 +67,7 @@ define ["paper"], (paper) ->
 			@paper.view.draw()
 
 		setText : (velocity) =>			
-			@text.content = velocity + "m/s"
+			@text.content = Math.round(velocity*10)/10 + "m/s"
 
 		attrReset : (oldRadius) =>
 
@@ -99,25 +99,29 @@ define ["paper"], (paper) ->
 		# resets the entire elements's attributes and repositions it
 		velocityReset : () =>
 
-			@velocity = @config.velocity 
+			@setVelocity @config.velocity
 
-		setTempVelocity : (velocity) => #used for the temp momentum velocity
+		setVelocity : (velocity) => 
 
 			@setText velocity
 			@velocity = velocity
 
-		setVelocity : (velocity, frameVelocity) =>
+			@paper.view.draw()
 
-			@config.velocity = parseInt velocity
-			@velocity = @config.velocity
+
+		initializeVelocity : (velocity, frameVelocity) =>
+
+			@config.velocity = parseInt(velocity) - frameVelocity
+			@velocityReset()
 
 			# set up the velocities so that they are displayed properly
-			label = if velocity < 0 then -1 * velocity else velocity
-			label -= frameVelocity
-			@tag.text label
-			@input.attr "value", label
+			#label = if velocity < 0 then -1 * velocity else velocity
+			#label -= frameVelocity
+			@tag.text @velocity
+			@input.attr "value", @velocity
 
-			@setText velocity -= frameVelocity
+			@paper.view.draw()
+			#@setText velocity -= frameVelocity
 
 		# called from outside modules to change mass!
 		setMass : (mass) =>

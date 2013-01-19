@@ -28,10 +28,45 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				b : new ball @paper, @container.find(".blue_velocity"), @options.b
 				frame : new frame @paper, @container.find(".frame_velocity"), @options.frame
 
+			@imgElement = @container.find("img")
+
 			# paper view
 			@playing = false
+			@numCollisions = 0
 			@paper.view.draw()		
+		isPlaying : () ->
+			return @playing
+
+		isFinished : () ->
+			return not @playing and @numCollisions > 0
+
+		adjustPlayButton: () =>
 			
+			if @isFinished()
+				src = "refresh"
+			else if @isPlaying()
+				src = "pause"
+			else 
+				src = "play"
+
+			@imgElement.attr("src", "images/" + src + ".png")
+
+		buttonAction : () ->
+			if @isFinished()
+				@reset()
+			else
+				@play()
+
+			@adjustPlayButton()
+
+		reset : () ->
+			for name,ball of @elements
+				if name != 'frame'
+					ball.positionReset()
+					ball.velocityReset()			
+
+			@numCollisions = 0 
+
 		play : () =>
 
 			# initialize references to the proper objects
@@ -39,10 +74,12 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			right = @elements.b
 			frame = @elements.frame
 
-			# initialize our running variables
-			numCollisions = 0 #after first collision react, after 2nd reset to beginning
+			# initialize our running variables			
 			rightRunning = true
 			leftRunning = true
+
+			#right.positionReset()
+			#left.positionReset()			
 
 			run = () =>
 				if !@playing
@@ -68,7 +105,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					reset = () =>
 
 						leftRunning = false
-						left.velocityReset()
+						#left.velocityReset()
 
 					move = () =>
 						
@@ -76,16 +113,16 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						current = left.element.position.x 
 						collisionBound = right.element.position.x - right.radius #right ball's collision element
 
-						if numCollisions == 0 and current + delta + left.radius > collisionBound
+						if @numCollisions == 0 and current + delta + left.radius > collisionBound
 							left.element.position.x = collisionBound - left.radius
 
 						else
 							left.element.position.x += delta
 
 
-					if leftRunning or numCollisions > 0
+					if leftRunning or @numCollisions > 0
 
-						if lv == 0 or lm == 0 or (lv + fv) == 0  or numCollisions > 1
+						if lv == 0 or lm == 0 or (lv + fv) == 0  or @numCollisions > 1
 							do reset
 								
 						else if parseInt(left.element.position.x) > maxRight or parseInt(left.element.position.x) < maxLeft
@@ -101,7 +138,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					reset = () =>
 
 						rightRunning = false
-						right.velocityReset()
+						#right.velocityReset()
 
 					move = () =>
 
@@ -110,15 +147,15 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						collisionBound = left.element.position.x + left.radius
 
 
-						if numCollisions == 0 and current + maxDelta < collisionBound
+						if @numCollisions == 0 and current + maxDelta < collisionBound
 							right.element.position.x = collisionBound + right.radius
 
 						else 
 							right.element.position.x += maxDelta							
 
-					if rightRunning or numCollisions > 0
+					if rightRunning or @numCollisions > 0
 					
-						if rv == 0 or rm == 0 or rv + fv == 0 or numCollisions > 1 
+						if rv == 0 or rm == 0 or rv + fv == 0 or @numCollisions > 1 
 							do reset
 
 						else if right.element.position.x < maxLeft or right.element.position.x > maxRight
@@ -139,8 +176,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 					rfv = ((rv * (rm - lm)) + (2* lm * lv)) / (lm + rm)
 
-					left.setTempVelocity lfv
-					right.setTempVelocity rfv
+					left.setVelocity lfv
+					right.setVelocity rfv
 
 				# check collision status and respond if necessary
 				do collisionStatus = () =>					
@@ -157,7 +194,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 						# handle the collision
 						do collisionResponse #responsible for controlling the reset values etc after the collision
-						numCollisions += 1				
+						@numCollisions += 1				
 						
 
 				# re-evaluate the animation status. Restart if necessary
@@ -166,10 +203,12 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					return setTimeout run, 10
 
 				else 	
-					right.positionReset()
-					left.positionReset()
-					@paper.view.draw()
+					#right.positionReset()
+					#left.positionReset()
 					@playing = false
+					$('#container').trigger('CNmomentumAnimationDone', this);					
+					@paper.view.draw()
+					
 			# END RUN METHOD
 
 			# handle the play call!
@@ -178,7 +217,18 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				do run #run the element
 			else
 				@playing = false  #pause
+
+			
+
 		# END PLAY METHOD
+
+		getPlayButtonImage: () ->
+			if @playing and @numCollisions > 1
+				return "refresh"
+			else if @playing
+				return "pause"
+			else 
+				return "play"
 
 
 

@@ -19,9 +19,9 @@ module.exports = {
 				class: "blue_velocity"
 				editable: true
 				type: "slider"
-				min: 0
-				value: 1
-				max: 10
+				min: -10
+				value: -1
+				max: 0
 				name: "Blue Velocity"
 				label : "m/s"
 
@@ -75,8 +75,8 @@ module.exports = {
 				class: "blue_velocity"
 				editable: false
 				type: "slider"
-				min: 0
-				value: 3
+				min: -0
+				value: -4
 				max: 10
 				name: "Blue Velocity"
 				label : "m/s"
@@ -131,9 +131,9 @@ module.exports = {
 				class: "blue_velocity"
 				editable: false
 				type: "slider"
-				min: 0
+				min: -10
 				value: 0
-				max: 10
+				max: 0
 				name: "Blue Velocity"
 				label : "m/s"
 
@@ -161,9 +161,9 @@ module.exports = {
 				class: "frame_velocity"
 				editable: false
 				type: "slider"
-				min: 5
-				value: 1
-				max: 10
+				min: -10
+				value: -1
+				max: 0
 				name: "Frame Velocity"
 				label: "m/s"
 
@@ -179,7 +179,7 @@ module.exports = {
 				type: "slider"
 				min: 0
 				value: 5
-				max: 20
+				max: 10
 				name: "Red Velocity"
 				label : "m/s"
 
@@ -187,9 +187,9 @@ module.exports = {
 				class: "blue_velocity"
 				editable: false
 				type: "slider"
-				min: 0
-				value: 1
-				max: 10
+				min: -10
+				value: -1
+				max: 0
 				name: "Blue Velocity"
 				label : "m/s"
 
@@ -217,10 +217,10 @@ module.exports = {
 				class: "frame_velocity"
 				editable: true
 				type: "slider"
-				min: 0
-				value: 10
+				min: -10
+				value: 0
 				valueLabel: 0
-				max: 20
+				max: 10
 				name: "Frame Velocity"
 				label: "m/s"
 
