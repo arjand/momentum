@@ -98,9 +98,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				maxRight = @paper.view.size.width * 0.95 
 
 				# validate both red and blue balls
-				do leftStatus = () =>
-					
-					# left ball is past the left screen 
+				do leftStatus = () =>					
 
 					reset = () =>
 
@@ -109,7 +107,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 					move = () =>
 						
-						delta = lv + fv #maximum amount of change for this element
+						delta = lv #maximum amount of change for this element
 						current = left.element.position.x 
 						collisionBound = right.element.position.x - right.radius #right ball's collision element
 
@@ -142,7 +140,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 					move = () =>
 
-						maxDelta = right.getVelocity() + frame.getVelocity()
+						maxDelta = right.getVelocity() #+ frame.getVelocity()
 						current = right.element.position.x - right.radius
 						collisionBound = left.element.position.x + left.radius
 
@@ -190,7 +188,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					lbRightSide = left.element.position.x + left.radius
 					rbLeftSide = right.element.position.x - right.radius
 					#console.log "left,right" + Math.round(lbRightSide) + "," + Math.round(rbLeftSide)
-					if rbLeftSide <= lbRightSide
+					if (rbLeftSide <= lbRightSide) and (@numCollisions <=2)
 
 						# reset the positions etc of the elements
 						# right.element.position.x = lbRightSide + right.radius
