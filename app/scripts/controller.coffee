@@ -5,9 +5,9 @@
 # 	3.) change frame, a and b elements here. An element that can be called from any class and then from the jquery elements
 #	4.) loads in the animations automatically for the elements with animation module!
 
-define ["base_module", "animation"], (baseModule, animation) ->
+define ["base_module", "animation", 'momentum_constants'], (baseModule, animation, momentum_constants) ->
 
-	container = '#container'
+	container = momentum_constants.HTML_CONTAINER
 	# html elements!
 	parent = $(container)
 
@@ -112,18 +112,13 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			module.adjustPlayButton()
 	);
 
-	toggleImageUrl = (element, module) ->		
-		img = $(element).find("img")		
-		img.attr("src", "images/" + module.getPlayButtonImage() + ".png")
-
 	do playListener = () ->
 
 		$(".play-all").click () ->
 			modules.lab.buttonAction()
 			modules.red.buttonAction()
 			modules.blue.buttonAction()
-			modules.custom.buttonAction()
-			#toggleImageUrl this
+			modules.custom.buttonAction()			
 
 		# clean this up with : http://stackoverflow.com/questions/7613100/issue-with-coffeescript-comprehensions-and-closures
 		parentElements.lab.find(".play").click () ->

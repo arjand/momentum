@@ -3,7 +3,7 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
+define ['paper', 'ball', 'frame', 'momentum_constants'], (paper, ball, frame, momentum_const) ->
 
 	class BaseModule
 				
@@ -48,8 +48,10 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				src = "pause"
 			else 
 				src = "play"
-
-			@imgElement.attr("src", "images/" + src + ".png")
+			#<img src="images/3b2a4253.play.png">
+			#<img src="images/pause.png">
+			newImage = @imgElement.attr("src").replace(/(images\/.*)play|pause|refresh(\.png)$/i, "$1#{src}$2" )					
+			@imgElement.attr("src", newImage)
 
 		buttonAction : () ->
 			if @isFinished()
@@ -208,7 +210,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					#right.positionReset()
 					#left.positionReset()
 					@playing = false
-					$('#container').trigger('CNmomentumAnimationDone', this);					
+					$(momentum_const.HTML_CONTAINER).trigger('CNmomentumAnimationDone', this);					
 					@paper.view.draw()
 					
 			# END RUN METHOD

@@ -1,4 +1,4 @@
-define ["jquery"], ($) -> #include our extension!
+define ["jquery", 'momentum_constants'], ($,momentum_constants) -> #include our extension!
 	
 	# basic easing function instead of including library!
 
@@ -54,7 +54,7 @@ define ["jquery"], ($) -> #include our extension!
 	controllers = []
 
 	# we want to initialize classes below!
-	$('#container').children("div").each () ->
+	$(momentum_constants.HTML_CONTAINER).children("div").each () ->
 
 		element = $(this)
 
