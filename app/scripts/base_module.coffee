@@ -179,6 +179,10 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					left.setVelocity lfv
 					right.setVelocity rfv
 
+					# after a collision both balls are running/moving
+					rightRunning = true
+					leftRunning = true
+
 				# check collision status and respond if necessary
 				do collisionStatus = () =>					
 
