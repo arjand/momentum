@@ -22,7 +22,7 @@ define ["paper"], (paper) ->
 		setVelocity : (velocity) =>
 
 			@config.velocity = parseInt velocity
-			@tag.html @config.velocity
+			@tag.html @config.velocity + " m/s"
 
 			#label = if @config.velocity < 0 then @config.velocity * -1 else @config.velocity
 

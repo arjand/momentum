@@ -5,7 +5,7 @@
 # 	3.) change frame, a and b elements here. An element that can be called from any class and then from the jquery elements
 #	4.) loads in the animations automatically for the elements with animation module!
 
-define ["base_module", "animation", 'momentum_constants'], (baseModule, animation, momentum_constants) ->
+define ["jquery", "base_module", "animation", 'momentum_constants'], ($, baseModule, animation, momentum_constants) ->
 
 	container = momentum_constants.HTML_CONTAINER
 	# html elements!
@@ -204,8 +204,8 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 			value = parseInt $(this).attr("value") #- 10
 
 			modules.custom.elements.frame.setVelocity value
-			modules.custom.elements.a.initializeVelocity modules.lab.elements.a.getVelocity(), value
-			modules.custom.elements.b.initializeVelocity modules.lab.elements.b.getVelocity(), value
+			modules.custom.elements.a.initializeVelocity modules.lab.elements.a.config.velocity, value
+			modules.custom.elements.b.initializeVelocity modules.lab.elements.b.config.velocity, value
 
 		containers.find(".red_velocity > input").change ->
 

@@ -1,4 +1,4 @@
-define ["jquery", 'momentum_constants'], ($,momentum_constants) -> #include our extension!
+define ["jquery", 'momentum_constants'], ($, momentum_constants) -> #include our extension!
 	
 	# basic easing function instead of including library!
 
@@ -37,31 +37,31 @@ define ["jquery", 'momentum_constants'], ($,momentum_constants) -> #include our 
 				else
 					@show()
 		
-		show : () =>
-
+		show : () =>			
 			@container.slideDown @config.animationTime, "general", () =>
 
-				@config.visible = true
+			@config.visible = true
 
-		hide : () =>
-
+		hide : () =>			
 			@container.slideUp @config.animationTime, "general", () =>
 
-				@config.visible = false
-
+			@config.visible = false
 
 
 	controllers = []
+	
+	# we need to make sure the document is ready first.
+	$( ->
+		$(momentum_constants.HTML_CONTAINER).children("div").each () ->
+			
+			element = $(this)
 
-	# we want to initialize classes below!
-	$(momentum_constants.HTML_CONTAINER).children("div").each () ->
+			trigger = element.find(".frame-header")
+			container = element.children(".momentum-content")
 
-		element = $(this)
+			controllers.push new ToggleController trigger, container			
+	)
 
-		trigger = element.find(".frame-header")
-		container = element.children(".momentum-content")
-
-		controllers.push new ToggleController trigger, container
 
 
 

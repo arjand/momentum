@@ -3,7 +3,7 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'ball', 'frame', 'momentum_constants'], (paper, ball, frame, momentum_const) ->
+define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ball, frame, momentum_const) ->
 
 	class BaseModule
 				

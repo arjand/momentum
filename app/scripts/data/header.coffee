@@ -1,6 +1,6 @@
 module.exports = 
 
-	pageTitle: "Momentum Project2"
+	pageTitle: "Interactive Momentum Demo"
 	metaKeywords : "physics, momentum, interactive, demo"
 	metaDescription : "meta descriptoin goes here"
 	styleSheets : ["styles/momentum.css"]
