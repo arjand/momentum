@@ -1,0 +1,48 @@
+@import "compass_twitter_bootstrap";
+@import "compass_twitter_bootstrap_responsive";
+
+
+$container: momentum_demo;
+
+##{$container} .momentum-content canvas{
+	width: 100%;
+	height: 6em;
+}
+
+.play-button{
+	text-align:center;
+	##{$container} & img {
+		height: 45px;
+	}
+}
+.frame-header{
+	background-color: whitesmoke;
+	border: 1px solid #e3e3e3;
+}
+
+.red_mass span.badge ,
+.red_velocity span.badge {
+	background-color: #b94a48;
+}
+.blue_mass span.badge ,
+.blue_velocity span.badge {
+	background-color: #3a87ad;
+}
+// ##{$container} > div > .momentum-content {
+
+// 	//@include center (100%);
+// 	//height: 12em;
+	
+// 	&:last-child {
+// 		@include bottom-border;
+// 	}
+
+// 	> canvas {
+		
+// 		@include background (255,255,255, 0.5);
+// 		//@include absolute;
+// 	}
+// 	.controller {
+// 		//@include absolute;
+// 	}
+// }

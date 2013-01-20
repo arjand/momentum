@@ -58,8 +58,8 @@ define ["jquery", 'momentum_constants'], ($,momentum_constants) -> #include our 
 
 		element = $(this)
 
-		trigger = element.find(".exit")
-		container = element.children(".content")
+		trigger = element.find(".frame-header")
+		container = element.children(".momentum-content")
 
 		controllers.push new ToggleController trigger, container
 

@@ -19,142 +19,164 @@
   </div>
 </body>
 <body>
-  <div>
-    <div class="play-all"><img src="images/versionless/play.png"></div>
-    <div id="momentum_demo">	
+  <section class="container">
+    <div class="row">
+      <div id="momentum-play-all" class="span2 offset5 play-button"><img src="images/versionless/play.png"></div>
+    </div>
+    <div id="momentum_demo" class="content">	
       <div>
-        <div class="header">
-          <h1>Laboratory Frame of Reference</h1>
-          <div class="exit"></div>
+        <div class="row frame-header">
+          <h4 class="span11">Laboratory Frame of Reference</h4>
+          <!--.exit-->
+          <button class="close close-button">&times; &nbsp;</button>
         </div>
-        <div class="content">
+        <div class="momentum-content">					
+          <div class="controller">										
+            <div class="row">
+              <div class="span2">
+                  <div class=" frame_velocity"> 
+                    <div><span>Frame Velocity </span><span class="badge">0 m/s</span>
+                    </div>
+                  </div>							
+                  <div class=" red_mass"> 
+                    <div><span>Red Mass </span><span class="badge">3 kg</span>
+                    </div>
+                    <input type="range" data-id="red_mass" min="1" max="10" step="1" value="3" class="span2">
+                  </div>
+              </div>
+                <div class="span2 red_velocity"> 
+                  <div><span>Red Velocity </span><span class="badge">5 m/s</span>
+                  </div>
+                  <input type="range" data-id="red_velocity" min="0" max="10" step="1" value="5" class="span2">
+                </div>
+              <div class="span4 play-button"><img src="images/versionless/play.png"></div>
+                <div class="span2 blue_mass"> 
+                  <div><span>Blue Mass </span><span class="badge">5 kg</span>
+                  </div>
+                  <input type="range" data-id="blue_mass" min="1" max="10" step="1" value="5" class="span2">
+                </div>
+                <div class="span2 blue_velocity"> 
+                  <div><span>Blue Velocity </span><span class="badge">-1 m/s</span>
+                  </div>
+                  <input type="range" data-id="blue_velocity" min="-10" max="0" step="1" value="-1" class="span2">
+                </div>
+            </div>
+          </div>
           <canvas data-main="Laboratory Frame of Reference"></canvas>
-          <div class="controller">
-            <div class="play"><img src="images/versionless/play.png"></div>
-            <div class="red_velocity">
-              <div class="label"><span>Red Velocity</span><span>5</span><span>m/s</span>
-              </div>
-              <input type="range" data-id="red_velocity" min="0" max="10" step="1" value="5">
-            </div>
-            <div class="blue_velocity">
-              <div class="label"><span>Blue Velocity</span><span>-1</span><span>m/s</span>
-              </div>
-              <input type="range" data-id="blue_velocity" min="-10" max="0" step="1" value="-1">
-            </div>
-            <div class="red_mass">
-              <div class="label"><span>Red Mass</span><span>3</span><span>kg</span>
-              </div>
-              <input type="range" data-id="red_mass" min="1" max="10" step="1" value="3">
-            </div>
-            <div class="blue_mass">
-              <div class="label"><span>Blue Mass</span><span>5</span><span>kg</span>
-              </div>
-              <input type="range" data-id="blue_mass" min="1" max="10" step="1" value="5">
-            </div>
-            <div class="frame_velocity">
-              <div class="label"><span>Frame Velocity</span><span class="static">0</span><span>m/s</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div>
-        <div class="header">
-          <h1>Red Ball Frame of Reference</h1>
-          <div class="exit"></div>
+        <div class="row frame-header">
+          <h4 class="span11">Red Ball Frame of Reference</h4>
+          <!--.exit-->
+          <button class="close close-button">&times; &nbsp;</button>
         </div>
-        <div class="content">
+        <div class="momentum-content">					
+          <div class="controller">										
+            <div class="row">
+              <div class="span2">
+                  <div class=" frame_velocity"> 
+                    <div><span>Frame Velocity </span><span class="badge">5 m/s</span>
+                    </div>
+                  </div>							
+                  <div class=" red_mass"> 
+                    <div><span>Red Mass </span><span class="badge">3 kg</span>
+                    </div>
+                  </div>
+              </div>
+                <div class="span2 red_velocity"> 
+                  <div><span>Red Velocity </span><span class="badge">0 m/s</span>
+                  </div>
+                </div>
+              <div class="span4 play-button"><img src="images/versionless/play.png"></div>
+                <div class="span2 blue_mass"> 
+                  <div><span>Blue Mass </span><span class="badge">5 kg</span>
+                  </div>
+                </div>
+                <div class="span2 blue_velocity"> 
+                  <div><span>Blue Velocity </span><span class="badge">-6 m/s</span>
+                  </div>
+                </div>
+            </div>
+          </div>
           <canvas data-main="Red Ball Frame of Reference"></canvas>
-          <div class="controller">
-            <div class="play"><img src="images/versionless/play.png"></div>
-            <div class="red_velocity">
-              <div class="label"><span>Red Velocity</span><span class="static">0</span><span>m/s</span>
-              </div>
-            </div>
-            <div class="blue_velocity">
-              <div class="label"><span>Blue Velocity</span><span class="static">-6</span><span>m/s</span>
-              </div>
-            </div>
-            <div class="red_mass">
-              <div class="label"><span>Red Mass</span><span class="static">3</span><span>kg</span>
-              </div>
-            </div>
-            <div class="blue_mass">
-              <div class="label"><span>Blue Mass</span><span class="static">5</span><span>kg</span>
-              </div>
-            </div>
-            <div class="frame_velocity">
-              <div class="label"><span>Frame Velocity</span><span class="static">5</span><span>m/s</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div>
-        <div class="header">
-          <h1>Blue Ball Frame of Reference</h1>
-          <div class="exit"></div>
+        <div class="row frame-header">
+          <h4 class="span11">Blue Ball Frame of Reference</h4>
+          <!--.exit-->
+          <button class="close close-button">&times; &nbsp;</button>
         </div>
-        <div class="content">
+        <div class="momentum-content">					
+          <div class="controller">										
+            <div class="row">
+              <div class="span2">
+                  <div class=" frame_velocity"> 
+                    <div><span>Frame Velocity </span><span class="badge">-1 m/s</span>
+                    </div>
+                  </div>							
+                  <div class=" red_mass"> 
+                    <div><span>Red Mass </span><span class="badge">3 kg</span>
+                    </div>
+                  </div>
+              </div>
+                <div class="span2 red_velocity"> 
+                  <div><span>Red Velocity </span><span class="badge">2 m/s</span>
+                  </div>
+                </div>
+              <div class="span4 play-button"><img src="images/versionless/play.png"></div>
+                <div class="span2 blue_mass"> 
+                  <div><span>Blue Mass </span><span class="badge">5 kg</span>
+                  </div>
+                </div>
+                <div class="span2 blue_velocity"> 
+                  <div><span>Blue Velocity </span><span class="badge">0 m/s</span>
+                  </div>
+                </div>
+            </div>
+          </div>
           <canvas data-main="Blue Ball Frame of Reference"></canvas>
-          <div class="controller">
-            <div class="play"><img src="images/versionless/play.png"></div>
-            <div class="red_velocity">
-              <div class="label"><span>Red Velocity</span><span class="static">2</span><span>m/s</span>
-              </div>
-            </div>
-            <div class="blue_velocity">
-              <div class="label"><span>Blue Velocity</span><span class="static">0</span><span>m/s</span>
-              </div>
-            </div>
-            <div class="red_mass">
-              <div class="label"><span>Red Mass</span><span class="static">3</span><span>kg</span>
-              </div>
-            </div>
-            <div class="blue_mass">
-              <div class="label"><span>Blue Mass</span><span class="static">5</span><span>kg</span>
-              </div>
-            </div>
-            <div class="frame_velocity">
-              <div class="label"><span>Frame Velocity</span><span class="static">-1</span><span>m/s</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div>
-        <div class="header">
-          <h1>Custom Frame of Reference</h1>
-          <div class="exit"></div>
+        <div class="row frame-header">
+          <h4 class="span11">Custom Frame of Reference</h4>
+          <!--.exit-->
+          <button class="close close-button">&times; &nbsp;</button>
         </div>
-        <div class="content">
-          <canvas data-main="Custom Frame of Reference"></canvas>
-          <div class="controller">
-            <div class="play"><img src="images/versionless/play.png"></div>
-            <div class="red_velocity">
-              <div class="label"><span>Red Velocity</span><span class="static">5</span><span>m/s</span>
+        <div class="momentum-content">					
+          <div class="controller">										
+            <div class="row">
+              <div class="span2">
+                  <div class=" frame_velocity"> 
+                    <div><span>Frame Velocity </span><span class="badge">0 m/s</span>
+                    </div>
+                    <input type="range" data-id="frame_velocity" min="-10" max="10" step="1" value="0" class="span2">
+                  </div>							
+                  <div class=" red_mass"> 
+                    <div><span>Red Mass </span><span class="badge">3 kg</span>
+                    </div>
+                  </div>
               </div>
-            </div>
-            <div class="blue_velocity">
-              <div class="label"><span>Blue Velocity</span><span class="static">-1</span><span>m/s</span>
-              </div>
-            </div>
-            <div class="red_mass">
-              <div class="label"><span>Red Mass</span><span class="static">3</span><span>kg</span>
-              </div>
-            </div>
-            <div class="blue_mass">
-              <div class="label"><span>Blue Mass</span><span class="static">5</span><span>kg</span>
-              </div>
-            </div>
-            <div class="frame_velocity">
-              <div class="label"><span>Frame Velocity</span><span>0</span><span>m/s</span>
-              </div>
-              <input type="range" data-id="frame_velocity" min="-10" max="10" step="1" value="0">
+                <div class="span2 red_velocity"> 
+                  <div><span>Red Velocity </span><span class="badge">5 m/s</span>
+                  </div>
+                </div>
+              <div class="span4 play-button"><img src="images/versionless/play.png"></div>
+                <div class="span2 blue_mass"> 
+                  <div><span>Blue Mass </span><span class="badge">5 kg</span>
+                  </div>
+                </div>
+                <div class="span2 blue_velocity"> 
+                  <div><span>Blue Velocity </span><span class="badge">-1 m/s</span>
+                  </div>
+                </div>
             </div>
           </div>
+          <canvas data-main="Custom Frame of Reference"></canvas>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </body>

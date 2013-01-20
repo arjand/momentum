@@ -1,46 +1,46 @@
-div
-	.play-all
-		img(src='images/versionless/play.png')
-	#momentum_demo	
+mixin frame_controls(control, css_class)
+	div(class="#{css_class} #{control.class}") 
+		div
+			span= control.name + " "
+
+			if control.editable 
+				span.badge #{control.value} #{control.label}
+			else
+				span.badge #{control.value} #{control.label}
+
+		//- need to have the controller inside of the actual class so we know whats up!
+		//- controller goes here
+		if control.editable
+			input(type= 'range', class="span2", data-id= control.class, min= control.min, max= control.max, step='1', value= control.value)		
+
+section.container
+	.row
+		#momentum-play-all.span2.offset5.play-button
+			img(src='images/versionless/play.png')
+
+	#momentum_demo.content	
 		each project in canvas
 			div
-				.header
-					h1= project.header
-					.exit
+				.row.frame-header
+					h4.span11= project.header
+					//.exit
+					button.close.close-button
+						&times; &nbsp;
+
 				//- canvas is paper-js driven!
-				.content
-					canvas(data-main= project.header)
+				.momentum-content					
 
 					//- controller overlays the canvas and is responsible for controls!
-					.controller
-						//- main controls for playing the animation
-						//- just a small element with a background-color etc!
-						.play
-							img(src='images/versionless/play.png')
+					.controller										
+						.row
+							.span2
+								mixin frame_controls(project.controls.frameVelocity, "")							
+								mixin frame_controls(project.controls.redMass, "")
+							mixin frame_controls(project.controls.redVelocity, "span2")
+							.span4.play-button
+									img(src='images/versionless/play.png')
+							mixin frame_controls(project.controls.blueMass, "span2")
+							mixin frame_controls(project.controls.blueVelocity, "span2")
 
-						//- loop through each project's controls
-						each control in project.controls
-							//- create the html for the element!
-							div(class= control.class)
-								.label
-									span= control.name
-
-									if control.editable && control.valueLabel !== undefined 
-										span= control.valueLabel
-
-									else if control.editable 
-										span= control.value
-
-									else if control.valueLabel
-										span(class='static')= control.valueLabel
-
-									else
-										span(class='static')= control.value
-
-
-									span= control.label
-								//- need to have the controller inside of the actual class so we know whats up!
-								//- controller goes here
-								if control.editable
-									input(type= 'range', data-id= control.class, min= control.min, max= control.max, step='1', value= control.value)		
+					canvas(data-main= project.header)
 

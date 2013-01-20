@@ -4,26 +4,15 @@ module.exports = {
 		header: "Laboratory Frame of Reference"
 		frame: "laboratory"
 		controls : 
-
-			redVelocity:
-				class: "red_velocity"
-				editable: true
+			frameVelocity:
+				class: "frame_velocity"
+				editable: false
 				type: "slider"
 				min: 0
-				value: 5
+				value: 0
 				max: 10
-				name: "Red Velocity"
-				label : "m/s"
-
-			blueVelocity: 
-				class: "blue_velocity"
-				editable: true
-				type: "slider"
-				min: -10
-				value: -1
-				max: 0
-				name: "Blue Velocity"
-				label : "m/s"
+				name: "Frame Velocity"
+				label: "m/s"
 
 			redMass:
 				class: "red_mass"
@@ -45,15 +34,29 @@ module.exports = {
 				name: "Blue Mass"
 				label: "kg"
 
-			frameVelocity:
-				class: "frame_velocity"
-				editable: false
+			redVelocity:
+				class: "red_velocity"
+				editable: true
 				type: "slider"
 				min: 0
-				value: 0
+				value: 5
 				max: 10
-				name: "Frame Velocity"
-				label: "m/s"
+				name: "Red Velocity"
+				label : "m/s"
+
+			blueVelocity: 
+				class: "blue_velocity"
+				editable: true
+				type: "slider"
+				min: -10
+				value: -1
+				max: 0
+				name: "Blue Velocity"
+				label : "m/s"
+
+			
+
+			
 
 	2 : 
 
@@ -218,8 +221,7 @@ module.exports = {
 				editable: true
 				type: "slider"
 				min: -10
-				value: 0
-				valueLabel: 0
+				value: 0				
 				max: 10
 				name: "Frame Velocity"
 				label: "m/s"

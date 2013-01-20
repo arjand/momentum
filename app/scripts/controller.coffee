@@ -13,10 +13,10 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 
 	parentElements = #base elemnets!
 
-		"lab" : $(container + ' > div:nth-child(1) > .content') 
-		"red" : $(container + ' > div:nth-child(2) > .content') 
-		"blue" : $(container + ' > div:nth-child(3) > .content')
-		"custom" : $(container + ' > div:nth-child(4) > .content')
+		"lab" : $(container + ' > div:nth-child(1) > .momentum-content') 
+		"red" : $(container + ' > div:nth-child(2) > .momentum-content') 
+		"blue" : $(container + ' > div:nth-child(3) > .momentum-content')
+		"custom" : $(container + ' > div:nth-child(4) > .momentum-content')
 
 	# initialize an object with all canvases pre-selected
 	canvasElements = 
@@ -35,13 +35,13 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 			a : 
 				velocity: 5
 				mass: 3
-				color: "red"
+				color: "#b94a48"
 				left: true
 
 			b :
 				velocity: -1
 				mass: 5
-				color: "blue"
+				color: "#3A87AD"
 				left: false
 
 			frame: 
@@ -53,12 +53,12 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 				mass: 3
 				velocity: 0
 				left: true
-				color: "red"
+				color: "#b94a48"
 
 			b:
 				mass: 5
 				velocity: -6
-				color: "blue"
+				color: "#3A87AD"
 				left: false
 
 			frame:
@@ -69,13 +69,13 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 			a:
 				mass: 3
 				velocity: 6
-				color: "red"
+				color: "#b94a48"
 				left: true
 
 			b:
 				mass: 5
 				velocity: 0
-				color: "blue"
+				color: "#3A87AD"
 				left: false
 
 			frame:
@@ -88,13 +88,13 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 			a:
 				mass: 3
 				velocity: 5
-				color: "red"
+				color: "#b94a48"
 				left: true
 
 			b:
 				mass: 5
 				velocity: -1
-				color: "blue"
+				color: "#3A87AD"
 				left: false
 
 			frame:
@@ -114,23 +114,23 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 
 	do playListener = () ->
 
-		$(".play-all").click () ->
+		$(momentum_constants.PLAY_ALL_BUTTON).click () ->
 			modules.lab.buttonAction()
 			modules.red.buttonAction()
 			modules.blue.buttonAction()
 			modules.custom.buttonAction()			
 
 		# clean this up with : http://stackoverflow.com/questions/7613100/issue-with-coffeescript-comprehensions-and-closures
-		parentElements.lab.find(".play").click () ->
+		parentElements.lab.find(momentum_constants.PLAY_BUTTON).click () ->
 			modules.lab.buttonAction()			
 
-		parentElements.red.find(".play").click () ->
+		parentElements.red.find(momentum_constants.PLAY_BUTTON).click () ->
 			modules.red.buttonAction()			
 
-		parentElements.blue.find(".play").click () ->
+		parentElements.blue.find(momentum_constants.PLAY_BUTTON).click () ->
 			modules.blue.buttonAction()			
 		
-		parentElements.custom.find(".play").click () ->
+		parentElements.custom.find(momentum_constants.PLAY_BUTTON).click () ->
 			modules.custom.buttonAction()		
 				
 
@@ -160,8 +160,8 @@ define ["base_module", "animation", 'momentum_constants'], (baseModule, animatio
 				elements.each () ->
 
 					$(this).attr "value", value
-					label = $(this).parent().children(".label").children("span:nth-child(2)")
-					label.text value
+					label = $(this).siblings().children(".badge")
+					label.text value + " kg"
 
 		# initialize the listener closures for each type of mass element
 		listen colorClass for colorClass in [".blue_mass", ".red_mass"]

@@ -18,8 +18,8 @@ define ["paper"], (paper) ->
 			@config =
 				
 				ballSizeChange: false
-				radiusFactor: 8
-				verticalOffset: 45
+				radiusFactor: 7
+				verticalOffset: 40
 				horizontalOffset: @paper.view.size.width * 0.25
 				left : true
 				maxHeight : @paper.view.size.height
@@ -117,8 +117,8 @@ define ["paper"], (paper) ->
 			# set up the velocities so that they are displayed properly
 			#label = if velocity < 0 then -1 * velocity else velocity
 			#label -= frameVelocity
-			@tag.text @velocity
-			@input.attr "value", @velocity
+			@tag.text @velocity + " m/s"
+			@input.attr "value", @velocity 
 
 			@paper.view.draw()
 			#@setText velocity -= frameVelocity
