@@ -10,10 +10,11 @@ define ["paper"], (paper) ->
 
 	class Ball
 
-		constructor : (@paper, @container, options) ->
+		constructor : (@paper, @velocityContainer, @massContainer, options) ->
 
-			@tag = container.find "span:nth-child(2)"
-			@input = container.find "input"
+			@massLabel = massContainer.find "span:nth-child(2)"
+			@velocityLabel = velocityContainer.find "span:nth-child(2)"
+			@input = velocityContainer.find "input"
 
 			@config =
 				
@@ -117,7 +118,7 @@ define ["paper"], (paper) ->
 			# set up the velocities so that they are displayed properly
 			#label = if velocity < 0 then -1 * velocity else velocity
 			#label -= frameVelocity
-			@tag.text @velocity + " m/s"
+			@velocityLabel.text @velocity + " m/s"
 			@input.attr "value", @velocity 
 
 			@paper.view.draw()
@@ -135,6 +136,8 @@ define ["paper"], (paper) ->
 
 			# initialize the 
 			@attrReset oldRadius
+
+			@massLabel.text @mass + " kg"
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>

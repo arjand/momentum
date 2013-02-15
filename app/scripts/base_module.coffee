@@ -24,8 +24,8 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 			# element data initializing 
 			@elements =
 
-				a : new ball @paper, @container.find(".red_velocity"), @options.a
-				b : new ball @paper, @container.find(".blue_velocity"), @options.b
+				a : new ball @paper, @container.find(".red_velocity"), @container.find(".red_mass"),@options.a
+				b : new ball @paper, @container.find(".blue_velocity"), @container.find(".blue_mass"), @options.b
 				frame : new frame @paper, @container.find(".frame_velocity"), @options.frame
 
 			@imgElement = @container.find("img")
@@ -122,7 +122,7 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 
 					if leftRunning or @numCollisions > 0
 
-						if lv == 0 or lm == 0 or (lv + fv) == 0  or @numCollisions > 1
+						if lv == 0 or lm == 0   or @numCollisions > 1 #or (lv + fv) == 0
 							do reset
 								
 						else if parseInt(left.element.position.x) > maxRight or parseInt(left.element.position.x) < maxLeft
@@ -155,7 +155,7 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 
 					if rightRunning or @numCollisions > 0
 					
-						if rv == 0 or rm == 0 or rv + fv == 0 or @numCollisions > 1 
+						if rv == 0 or rm == 0  or @numCollisions > 1 #or rv + fv == 0
 							do reset
 
 						else if right.element.position.x < maxLeft or right.element.position.x > maxRight
