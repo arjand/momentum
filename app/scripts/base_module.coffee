@@ -113,11 +113,11 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 						current = left.element.position.x 
 						collisionBound = right.element.position.x - right.radius #right ball's collision element
 
-						if @numCollisions == 0 and current + delta + left.radius > collisionBound
-							left.element.position.x = collisionBound - left.radius
+						#if @numCollisions == 0 and current + delta + left.radius > collisionBound
+						#	left.element.position.x = collisionBound - left.radius
 
-						else
-							left.element.position.x += delta
+						#else
+						left.element.position.x += delta
 
 
 					if leftRunning or @numCollisions > 0
@@ -147,11 +147,11 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 						collisionBound = left.element.position.x + left.radius
 
 
-						if @numCollisions == 0 and current + maxDelta < collisionBound
-							right.element.position.x = collisionBound + right.radius
+						#if @numCollisions == 0 and current + maxDelta < collisionBound
+						#	right.element.position.x = collisionBound + right.radius
 
-						else 
-							right.element.position.x += maxDelta							
+						#else 
+						right.element.position.x += maxDelta							
 
 					if rightRunning or @numCollisions > 0
 					
