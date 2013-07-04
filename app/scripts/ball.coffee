@@ -11,13 +11,11 @@ define ["paper"], (paper) ->
 	class Ball
 
 		constructor : (@paper, @velocityContainer, @massContainer, options) ->
-
 			@massLabel = massContainer.find "span:nth-child(2)"
 			@velocityLabel = velocityContainer.find "span:nth-child(2)"
 			@input = velocityContainer.find "input"
 
-			@config =
-				
+			@config =				
 				ballSizeChange: false
 				radiusFactor: 7
 				verticalOffset: 40
@@ -26,7 +24,7 @@ define ["paper"], (paper) ->
 				maxHeight : @paper.view.size.height
 				maxWidth : @paper.view.size.width
 
-			# for each element, set the global config for this!
+			# for each element, set the global config for this
 			@config.mass = options.mass
 			@config.velocity = options.velocity
 
@@ -39,7 +37,7 @@ define ["paper"], (paper) ->
 
 			# initialze the element
 			@init()
-			# end constructor function
+		# end constructor function
 
 		init : () =>
 
@@ -70,10 +68,7 @@ define ["paper"], (paper) ->
 		setText : (velocity) =>			
 			@text.content = Math.round(velocity*10)/10 + "m/s"
 
-		attrReset : (oldRadius) =>
-
-			# initialize the radius			
-
+		attrReset : (oldRadius) =>		
 			# reset the radius of the circle
 			@circle.scale @radius / oldRadius
 
@@ -87,66 +82,48 @@ define ["paper"], (paper) ->
 
 			# update the view
 			@paper.view.draw()
-
-		# reset the position only, between runs only!
+		
 		positionReset : () =>
-
 			# useful when we just are finished running the animation
 			@element.position.x = @original.x
 			@element.position.y = @original.y
 
 			@paper.view.draw()
-
-		# resets the entire elements's attributes and repositions it
+		
 		velocityReset : () =>
-
 			@setVelocity @config.velocity
 
 		setVelocity : (velocity) => 
-
 			@setText velocity
 			@velocity = velocity
 
 			@paper.view.draw()
 
-
 		initializeVelocity : (velocity, frameVelocity) =>
-
 			@config.velocity = parseInt(velocity) - frameVelocity
 			@velocityReset()
 
-			# set up the velocities so that they are displayed properly
-			#label = if velocity < 0 then -1 * velocity else velocity
-			#label -= frameVelocity
+			# set up the velocities so that they are displayed properly			
 			@velocityLabel.text @velocity + " m/s"
 			@input.attr "value", @velocity 
 
-			@paper.view.draw()
-			#@setText velocity -= frameVelocity
-
-		# called from outside modules to change mass!
+			@paper.view.draw()			
+		
 		setMass : (mass) =>
-
 			@config.mass = mass
 			@mass = mass
 			oldRadius = @radius
 
 			if @config.ballSizeChange
 				@radius = @mass * @config.radiusFactor
-
-			# initialize the 
+			
 			@attrReset oldRadius
 
 			@massLabel.text @mass + " kg"
-
-		# return the current velocity for animation run in the elements!
-		getVelocity : () =>
-
-			# returns current velocity
+		
+		getVelocity : () =>			
 			return @velocity
-
-		# return the mass
+		
 		getMass : () =>
-
 			return @mass
 

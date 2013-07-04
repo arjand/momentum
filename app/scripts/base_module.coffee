@@ -1,13 +1,12 @@
-# Module functions
-
-# this module serves as the controller for this animation
-# need to resize the balls on mass change
+# A BaseModule contains the logic for one particular animation (frame
+# of reference). Each base module contains 2 balls and various controls
+# for modifying the animation and reporting data to the user.
 
 define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ball, frame, momentum_const) ->
 
 	class BaseModule
 				
-		constructor : (@container, @options) -> #send in options -- ie: height / width!
+		constructor : (@container, @options) -> #send in options -- ie: height / width
 
 			# initialize paperjs library
 			@paper = new paper.PaperScope()
@@ -18,12 +17,10 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 			@view = new @paper.View(@canvas)
 
 			@view.draw = () ->
-
 				# should not be re-implemented
 
 			# element data initializing 
 			@elements =
-
 				a : new ball @paper, @container.find(".red_velocity"), @container.find(".red_mass"),@options.a
 				b : new ball @paper, @container.find(".blue_velocity"), @container.find(".blue_mass"), @options.b
 				frame : new frame @paper, @container.find(".frame_velocity"), @options.frame
@@ -33,26 +30,26 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 			# paper view
 			@playing = false
 			@numCollisions = 0
-			@paper.view.draw()		
+			@paper.view.draw()	
+
 		isPlaying : () ->
 			return @playing
 
 		isFinished : () ->
 			return not @playing and @numCollisions > 0
 
-		adjustPlayButton: () =>
-			
+		# adjusts the image of the play button 
+		adjustPlayButton: () =>			
 			if @isFinished()
 				src = "refresh"
 			else if @isPlaying()
 				src = "pause"
 			else 
-				src = "play"
-			#<img src="images/3b2a4253.play.png">
-			#<img src="images/pause.png">
+				src = "play"			
 			newImage = @imgElement.attr("src").replace(/(images\/.*)play|pause|refresh(\.png)$/i, "$1#{src}$2" )					
 			@imgElement.attr("src", newImage)
 
+		# action to take when the play button is pressed
 		buttonAction : () ->
 			if @isFinished()
 				@reset()
@@ -70,7 +67,6 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 			@numCollisions = 0 
 
 		play : () =>
-
 			# initialize references to the proper objects
 			left = @elements.a
 			right = @elements.b
@@ -78,14 +74,13 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 
 			# initialize our running variables			
 			rightRunning = true
-			leftRunning = true
+			leftRunning = true			
 
-			#right.positionReset()
-			#left.positionReset()			
-
+			# run is executed when the animation is running
 			run = () =>
 				if !@playing
 					return 
+
 				# cache velocities etc for quick local access
 				lv = left.getVelocity()
 				lm = left.getMass()
@@ -100,23 +95,15 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 				maxRight = @paper.view.size.width * 0.95 
 
 				# validate both red and blue balls
-				do leftStatus = () =>					
-
+				do leftStatus = () =>
 					reset = () =>
-
 						leftRunning = false
-						#left.velocityReset()
-
-					move = () =>
 						
-						delta = lv #maximum amount of change for this element
+					move = () =>						
+						delta = lv # maximum amount of change for this element
 						current = left.element.position.x 
 						collisionBound = right.element.position.x - right.radius #right ball's collision element
-
-						#if @numCollisions == 0 and current + delta + left.radius > collisionBound
-						#	left.element.position.x = collisionBound - left.radius
-
-						#else
+						
 						left.element.position.x += delta
 
 
@@ -134,23 +121,14 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 						@paper.view.draw()
 
 				do rightStatus = () =>
-
 					reset = () =>
-
-						rightRunning = false
-						#right.velocityReset()
+						rightRunning = false				
 
 					move = () =>
-
-						maxDelta = right.getVelocity() #+ frame.getVelocity()
+						maxDelta = right.getVelocity() 
 						current = right.element.position.x - right.radius
 						collisionBound = left.element.position.x + left.radius
 
-
-						#if @numCollisions == 0 and current + maxDelta < collisionBound
-						#	right.element.position.x = collisionBound + right.radius
-
-						#else 
 						right.element.position.x += maxDelta							
 
 					if rightRunning or @numCollisions > 0
@@ -167,8 +145,8 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 						# refresh the scene if still running
 						@paper.view.draw()
 
+				# Physics described on wikipedia: http://en.wikipedia.org/wiki/Elastic_collision
 				collisionResponse = () =>
-
 					lm = do left.getMass
 					rm = do right.getMass
 
@@ -189,26 +167,20 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 					# collision hasn't happened ... check values etc
 					lbRightSide = left.element.position.x + left.radius
 					rbLeftSide = right.element.position.x - right.radius
-					#console.log "left,right" + Math.round(lbRightSide) + "," + Math.round(rbLeftSide)
-					if (rbLeftSide <= lbRightSide) and (@numCollisions <=2)
-
-						# reset the positions etc of the elements
-						# right.element.position.x = lbRightSide + right.radius
+					
+					if (rbLeftSide <= lbRightSide) and (@numCollisions <=2)						
 						@paper.view.draw()
 
 						# handle the collision
-						do collisionResponse #responsible for controlling the reset values etc after the collision
+						do collisionResponse # responsible for controlling the reset values etc after the collision
 						@numCollisions += 1				
 						
 
 				# re-evaluate the animation status. Restart if necessary
 				if leftRunning or rightRunning
-
 					return setTimeout run, 10
 
-				else 	
-					#right.positionReset()
-					#left.positionReset()
+				else 						
 					@playing = false
 					$(momentum_const.HTML_CONTAINER).trigger('CNmomentumAnimationDone', this);					
 					@paper.view.draw()
@@ -221,18 +193,9 @@ define ['jquery', 'paper', 'ball', 'frame', 'momentum_constants'], ($, paper, ba
 				do run #run the element
 			else
 				@playing = false  #pause
-
-			
-
 		# END PLAY METHOD
 
-		getPlayButtonImage: () ->
-			if @playing and @numCollisions > 1
-				return "refresh"
-			else if @playing
-				return "pause"
-			else 
-				return "play"
+		
 
 
 

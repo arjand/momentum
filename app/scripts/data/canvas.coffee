@@ -54,12 +54,7 @@ module.exports = {
 				name: "Blue Velocity"
 				label : "m/s"
 
-			
-
-			
-
 	2 : 
-
 		header: "Red Ball Frame of Reference"
 		frame: "red_ball"
 		controls : 
@@ -115,7 +110,6 @@ module.exports = {
 				label: "m/s"
 
 	3:
-
 		header: "Blue Ball Frame of Reference"
 		frame : "blue_ball"
 		controls : 
@@ -171,7 +165,6 @@ module.exports = {
 				label: "m/s"
 
 	4:
-
 		header : "Custom Frame of Reference"
 		frame : "custom"
 		controls : 

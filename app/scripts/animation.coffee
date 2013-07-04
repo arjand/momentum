@@ -1,9 +1,11 @@
+# Defines the animation behavior of the hiding and showing of
+# the animation frames via the X button displayed on the page 
+# in the top right corner of the frame.
+
 define ["jquery", 'momentum_constants'], ($, momentum_constants) -> #include our extension!
 	
-	# basic easing function instead of including library!
-
+	# basic easing function instead of including library
 	$.easing.general = (x, t, b, c, d) -> 
-
 			if ((t/=d) < (1/2.75))
 				return c*(7.5625*t*t) + b
 			
@@ -18,19 +20,14 @@ define ["jquery", 'momentum_constants'], ($, momentum_constants) -> #include our
 
 
 	class ToggleController
-
 		config :
-
-			animationTime : 1000 #how long the animation will run for
-			visible : true #open by default!
-
+			animationTime : 1000 # how long the animation will run for
+			visible : true # open by default!
 
 		constructor : (trigger, container) ->
-
 			@container = container
 
 			$(trigger).click () =>
-
 				if @config.visible
 					@hide()
 
