@@ -30,21 +30,3 @@ $container: momentum_demo;
 .blue_velocity span.badge {
 	background-color: #3a87ad;
 }
-// ##{$container} > div > .momentum-content {
-
-// 	//@include center (100%);
-// 	//height: 12em;
-	
-// 	&:last-child {
-// 		@include bottom-border;
-// 	}
-
-// 	> canvas {
-		
-// 		@include background (255,255,255, 0.5);
-// 		//@include absolute;
-// 	}
-// 	.controller {
-// 		//@include absolute;
-// 	}
-// }
